@@ -1,3 +1,5 @@
+/* COMMON */
+
 body {
   margin: 0;
   padding: 0;
@@ -13,4 +15,34 @@ body {
 .container {
   width: 1235px;
   margin: 0 auto;
+}
+
+.yellow {
+  color: #EDB72B;
+}
+
+/* FIRST SCREEN */
+
+.header {
+  height: 575px;
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('../public/img/header-background.jpg');
+  background-size: cover;
+}
+
+.first-screen-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.first-screen-content h1 {
+  width: 660px;
+
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 55px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #FFFFFF;
 }
