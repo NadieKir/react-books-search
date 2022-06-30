@@ -1,0 +1,53 @@
+.main {
+  padding: 60px 0;
+}
+
+.container {
+  display: flex;
+  column-gap: 60px;
+}
+
+.book-cover {
+ width: 350px;
+ height: 490px;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 70%;
+
+  font-family: 'Raleway';
+  font-style: normal;
+}
+
+.categories {
+  font-weight: 300;
+  font-size: 15px;
+  color: #737373;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 30px;
+  color: #313030;
+
+  margin-top: 20px;
+}
+
+.authors {
+  font-weight: 400;
+  font-size: 16px;
+  color: #737373;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #313030;
+
+  margin-top: 15px;
+}

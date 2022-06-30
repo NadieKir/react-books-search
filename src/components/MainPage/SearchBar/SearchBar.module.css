@@ -34,6 +34,7 @@
   background: #EDB72B;
 
   border-radius: 12px;
+  border: none;
   cursor: pointer;
   transition: 0.3s;
 }

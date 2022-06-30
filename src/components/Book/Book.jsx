@@ -1,20 +1,21 @@
-import styles from'./Book.module.css';
+import { NavLink } from 'react-router-dom';
+import styles from './Book.module.css';
 
-function Book () {
-    return (
-      <a href="">
-        <div className={styles['book-card']}>
-          <img src='img/cover.jpg' alt='cover' className={styles['book-cover']}></img>
-          <div className={styles['book-info-wrapper']}>
-            <div className={styles['book-info']}>
-              <p className={styles.categories}>Computers</p>
-              <h3 className={styles.name}>Программирование на JavaScript</h3>
-              <p className={styles.authors}>Хэнчет Эрик, Листоун Бенджамин</p>
-            </div>
+function Book() {
+  return (
+    <NavLink to='/book'>
+      <div className={styles['book-card']}>
+        <img src='img/cover.jpg' alt='cover' className={styles['book-cover']}></img>
+        <div className={styles['book-info-wrapper']}>
+          <div className={styles['book-info']}>
+            <p className={styles.categories}>Computers</p>
+            <h3 className={styles.name}>Программирование на JavaScript</h3>
+            <p className={styles.authors}>Хэнчет Эрик, Листоун Бенджамин</p>
           </div>
         </div>
-      </a>
-    )
+      </div>
+    </NavLink>
+  )
 }
 
 export default Book;
