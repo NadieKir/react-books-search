@@ -1,6 +1,6 @@
 import styles from './BookContent.module.css';
 
-function BookContent() {
+function BookContent(props) {
   return (
     <main className={styles.main}>
       <div className={`${styles.container} container`}>
