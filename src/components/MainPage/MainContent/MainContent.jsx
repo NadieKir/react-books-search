@@ -22,7 +22,7 @@ function MainContent(props) {
         {setTitle()}
 
         <div className={styles["books-wrapper"]}>
-          {props.foundBooks.map(book => <Book data={book.volumeInfo} />)}
+          {props.foundBooks.map(book => <Book data={book} key={book.id} />)}
         </div>
 
         <Button />

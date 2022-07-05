@@ -1,7 +1,7 @@
 import styles from './MainPage.module.css';
 import Header from '../Header/Header';
 import MainContent from './MainContent/MainContent';
-import SearchBar from './SearchBar/SearchBar';
+import SearchBar from '../SearchBar/SearchBar';
 import axios from 'axios';
 import { useState } from 'react';
 

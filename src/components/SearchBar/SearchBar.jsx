@@ -1,4 +1,5 @@
 import styles from './SearchBar.module.css';
+import search from '../../assets/img/search.svg'
 
 function SearchBar(props) {
 
@@ -7,7 +8,7 @@ function SearchBar(props) {
       <div className={styles["form-wrapper"]}>
         <input onChange={props.handleChange} type="text" placeholder='Search books' className={styles["main-search-input"]} />
         <button type='submit' className={styles["search-btn"]}>
-          <img src="img/search.svg" alt="search" />
+          <img src={search} alt="search" />
         </button>
       </div>
       <div className={styles["form-wrapper"]}>

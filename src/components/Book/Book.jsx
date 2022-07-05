@@ -4,14 +4,14 @@ import styles from './Book.module.css';
 function Book(props) {
   console.log(props.data);
   return (
-    <NavLink to='/book'>
+    <NavLink to={`/book/${props.data.id}`}>
       <div className={styles['book-card']}>
-        <img src={props.data.imageLinks ? props.data.imageLinks.smallThumbnail : 'img/no-cover.jpg'} alt='cover' className={styles['book-cover']}></img>
+        <img src={props.data.volumeInfo.imageLinks ? props.data.volumeInfo.imageLinks.thumbnail : 'img/no-cover.jpg'} alt='cover' className={styles['book-cover']}></img>
         <div className={styles['book-info-wrapper']}>
           <div className={styles['book-info']}>
-            <p className={styles.categories}>{props.data.categories ? props.data.categories.join(' ,') : 'Other'}</p>
-            <h3 className={styles.name}>{props.data.title}</h3>
-            <p className={styles.authors}>{props.data.authors ? props.data.authors.join(' ,') : 'Anonymous'}</p>
+            <p className={styles.categories}>{props.data.volumeInfo.categories ? props.data.volumeInfo.categories.join(' ,') : 'Other'}</p>
+            <h3 className={styles.name}>{props.data.volumeInfo.title}</h3>
+            <p className={styles.authors}>{props.data.volumeInfo.authors ? props.data.volumeInfo.authors.join(' ,') : 'Anonymous'}</p>
           </div>
         </div>
       </div>
