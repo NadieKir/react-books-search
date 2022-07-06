@@ -1,31 +1,31 @@
 import Book from '../../Book/Book';
 import Button from '../../Button/Button';
 import styles from './MainContent.module.css';
+import React from 'react';
 
-function MainContent(props) {
+function MainContent({ foundBooks }) {
+
   function setTitle() {
-    if (props.foundBooks.length !== 0) {
+    if (foundBooks.length !== 0) {
       return (
-        <h2 className={styles.heading}>Found <span className="yellow">{props.foundBooks.length}</span> results</h2>
-      )
-    } else {
-      return (
-        <h2 className={styles.heading}>Start searching books</h2>
+        <div>Found <span className="yellow">{foundBooks.length}</span> results</div>
       )
     }
+    return 'Nothing found'
   }
 
   return (
     <main className={styles.main}>
       <div className={`${styles.container} container`} >
 
-        {setTitle()}
+        <h2 className={styles.heading}>{setTitle()}</h2>
 
         <div className={styles["books-wrapper"]}>
-          {props.foundBooks.map(book => <Book data={book} key={book.id} />)}
+          {foundBooks.map(book => <Book data={book} key={book.id} />)}
         </div>
 
         <Button />
+
       </div>
     </main>
   )

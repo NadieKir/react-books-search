@@ -1,12 +1,13 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './Book.module.css';
+import noCover from '../../assets/img/no-cover.jpg'
 
 function Book(props) {
   console.log(props.data);
   return (
-    <NavLink to={`/book/${props.data.id}`}>
+    <Link to={`/book/${props.data.id}`}>
       <div className={styles['book-card']}>
-        <img src={props.data.volumeInfo.imageLinks ? props.data.volumeInfo.imageLinks.thumbnail : 'img/no-cover.jpg'} alt='cover' className={styles['book-cover']}></img>
+        <img src={props.data.volumeInfo.imageLinks ? props.data.volumeInfo.imageLinks.thumbnail : noCover} alt='cover' className={styles['book-cover']}></img>
         <div className={styles['book-info-wrapper']}>
           <div className={styles['book-info']}>
             <p className={styles.categories}>{props.data.volumeInfo.categories ? props.data.volumeInfo.categories.join(' ,') : 'Other'}</p>
@@ -15,7 +16,7 @@ function Book(props) {
           </div>
         </div>
       </div>
-    </NavLink>
+    </Link>
   )
 }
 

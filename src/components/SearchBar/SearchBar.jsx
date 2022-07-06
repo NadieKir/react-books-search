@@ -1,12 +1,12 @@
 import styles from './SearchBar.module.css';
 import search from '../../assets/img/search.svg'
 
-function SearchBar(props) {
+function SearchBar({ handleSubmit, handleChange }) {
 
   return (
-    <form onSubmit={props.handleSubmit} action="" className={styles["search-form"]}>
+    <form onSubmit={handleSubmit} className={styles["search-form"]}>
       <div className={styles["form-wrapper"]}>
-        <input onChange={props.handleChange} type="text" placeholder='Search books' className={styles["main-search-input"]} />
+        <input onChange={handleChange} type="text" placeholder='Search books' className={styles["main-search-input"]} />
         <button type='submit' className={styles["search-btn"]}>
           <img src={search} alt="search" />
         </button>
