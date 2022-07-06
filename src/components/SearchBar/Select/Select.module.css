@@ -1,0 +1,24 @@
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.input-wrapper span {
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.input-wrapper select {
+  width: 210px;
+  height: 35px;
+
+  box-sizing: border-box;
+  padding: 8px 10px;
+
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}

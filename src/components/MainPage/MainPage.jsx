@@ -6,21 +6,48 @@ import axios from 'axios';
 import { useState } from 'react';
 
 function MainPage() {
-  const [search, setSearch] = useState('');
+  const categories = [
+    { value: 'any', name: 'Any' },
+    { value: 'architechture', name: 'Architechture' },
+    { value: 'art', name: 'Art' },
+    { value: 'bibles', name: 'Bibles' },
+    { value: 'computers', name: 'Computers' },
+    { value: 'cooking', name: 'Cooking' },
+    { value: 'design', name: 'Design' },
+    { value: 'drama', name: 'Drama' },
+    { value: 'education', name: 'Education' },
+    { value: 'fiction', name: 'Fiction' },
+    { value: 'history', name: 'History' },
+    { value: 'humor', name: 'Humor' },
+    { value: 'medical', name: 'Medical' },
+    { value: 'nature', name: 'Nature' },
+    { value: 'pets', name: 'Pets' },
+    { value: 'poetry', name: 'Poetry' },
+    { value: 'religion', name: 'Religion' },
+    { value: 'science', name: 'Science' },
+  ];
+
+  const sorts = [
+    { value: 'relevance ', name: 'Relevance' },
+    { value: 'newest', name: 'Newest' },
+  ]
+
   const [result, setResult] = useState([]);
+  const [filter, setFilter] = useState({ query: '', category: 'any', sort: 'relevance' });
 
   const apiKey = 'AIzaSyBDHC44j_bDgGn_XY6u0h8NiyUkKeWw0qc';
 
   function handleSubmit(e) {
     e.preventDefault();
-    axios.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=${apiKey}&maxResults=30`)
+    console.log(filter);
+
+    let request = `https://www.googleapis.com/books/v1/volumes?q=intitle:${filter.query}`;
+    if (filter.category !== 'any') request = request + `+subject:${filter.category}`;
+    request = request + `&orderBy=${filter.sort}&key=${apiKey}&maxResults=30`;
+
+    axios.get(request)
       .then(data => setResult(data.data.items))
       .catch(err => console.log(err))
-  }
-
-  function handleChange(e) {
-    let search = e.target.value;
-    setSearch(search);
   }
 
   return (
@@ -29,7 +56,13 @@ function MainPage() {
         <Header />
         <div className={`${styles["first-screen-content"]} container`}>
           <h1>A room without <span className="yellow">books</span> like a body without a soul</h1>
-          <SearchBar handleSubmit={handleSubmit} handleChange={handleChange} />
+          <SearchBar
+            filter={filter}
+            setFilter={setFilter}
+            handleSubmit={handleSubmit}
+            categories={categories}
+            sorts={sorts}
+          />
         </div>
       </header>
 
