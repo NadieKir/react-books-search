@@ -19,7 +19,7 @@
   flex-wrap: wrap;
 }
 
-.container {
+.container>div {
   display: flex;
   flex-direction: column;
 }
