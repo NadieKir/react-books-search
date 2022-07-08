@@ -3,7 +3,6 @@ import styles from './Book.module.css';
 import noCover from '../../assets/img/no-cover.jpg'
 
 function Book(props) {
-  //console.log(props.data);
   return (
     <Link to={`/book/${props.data.id}`}>
       <div className={styles['book-card']}>

@@ -1,42 +1,23 @@
-import styles from './MainPage.module.css';
+import { useState } from 'react';
+import axios from 'axios';
+
 import Header from '../Header/Header';
 import MainContent from './MainContent/MainContent';
 import SearchBar from '../SearchBar/SearchBar';
-import axios from 'axios';
-import { useState } from 'react';
+
+import { categories, sorts, apiKey } from '../../constants/constants'
+
+import styles from './MainPage.module.css';
+
 
 function MainPage() {
-  const categories = [
-    { value: 'any', name: 'Any' },
-    { value: 'architechture', name: 'Architechture' },
-    { value: 'art', name: 'Art' },
-    { value: 'bibles', name: 'Bibles' },
-    { value: 'computers', name: 'Computers' },
-    { value: 'cooking', name: 'Cooking' },
-    { value: 'design', name: 'Design' },
-    { value: 'drama', name: 'Drama' },
-    { value: 'education', name: 'Education' },
-    { value: 'fiction', name: 'Fiction' },
-    { value: 'history', name: 'History' },
-    { value: 'humor', name: 'Humor' },
-    { value: 'medical', name: 'Medical' },
-    { value: 'nature', name: 'Nature' },
-    { value: 'pets', name: 'Pets' },
-    { value: 'poetry', name: 'Poetry' },
-    { value: 'religion', name: 'Religion' },
-    { value: 'science', name: 'Science' },
-  ];
-
-  const sorts = [
-    { value: 'relevance', name: 'Relevance' },
-    { value: 'newest', name: 'Newest' },
-  ]
-
-  const apiKey = 'AIzaSyBDHC44j_bDgGn_XY6u0h8NiyUkKeWw0qc';
-
   const [result, setResult] = useState([]);
   const [filter, setFilter] = useState({ query: '', category: 'any', sort: 'relevance' });
   const [index, setIndex] = useState(0);
+
+  // function buildRequest() {
+
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -61,8 +42,7 @@ function MainPage() {
       .then(data => setResult({ ...result, items: result.items.concat(data.data.items) }))
       .catch(err => console.log(err))
 
-    if ((index + 30) > result.totalItems) setIndex('end');
-    else setIndex(prev => prev + 30);
+      ((index + 30) > result.totalItems) ? setIndex(0) : setIndex(prev => prev + 30);
   }
 
   return (

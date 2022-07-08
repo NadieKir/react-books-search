@@ -22,12 +22,12 @@ function MainContent({ foundBooks, loadMore, index }) {
                   {foundBooks.items.map(book => <Book data={book} key={book.etag} />)}
                 </div>
 
-                {index !== 'end' && <Button callback={loadMore} />}
+                {index !== 0 && <Button value='Load more' callback={loadMore} />}
               </div>
             )}
 
       </div>
-    </main >
+    </main>
   )
 }
 
