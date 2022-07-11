@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import axios from 'axios';
 
 import Header from '../Header/Header';
 import MainContent from './MainContent/MainContent';
 import SearchBar from '../SearchBar/SearchBar';
+import BookService from '../../services/BookService'
 
-import { categories, sorts, apiKey } from '../../constants/constants'
+import { categories, sorts } from '../../constants/constants'
 
 import styles from './MainPage.module.css';
 
@@ -17,37 +17,33 @@ function MainPage() {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isLoadingSearch, setIsLoadingSearch] = useState(false);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setIsLoadingSearch(true);
-
-    let request = `https://www.googleapis.com/books/v1/volumes?q=intitle:${filter.query}`;
-    if (filter.category !== 'any') request = request + `+subject:${filter.category}`;
-    request = request + `&orderBy=${filter.sort}&key=${apiKey}&startIndex=0&maxResults=30`;
-
-    axios.get(request)
-      .then(({ data }) => {
+    if (filter.query) {
+      try {
+        setIsLoadingSearch(true);
+        const data = await BookService.getBooks(filter, 0);
         setResult(data);
         data.totalItems <= 30 ? setIndex(0) : setIndex(30);
-      })
-      .catch(err => console.log(err))
-      .finally(() => setIsLoadingSearch(false))
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setIsLoadingSearch(false)
+      }
+    }
   }
 
-  function loadMore() {
-    setIsLoadingMore(true);
-
-    let request = `https://www.googleapis.com/books/v1/volumes?q=intitle:${filter.query}`;
-    if (filter.category !== 'any') request = request + `+subject:${filter.category}`;
-    request = request + `&orderBy=${filter.sort}&key=${apiKey}&startIndex=${index}&maxResults=30`;
-
-    axios.get(request)
-      .then(({ data }) => {
-        setResult({ ...result, items: result.items.concat(data.items) });
-        index + 30 >= data.totalItems ? setIndex(0) : setIndex(prev => prev + 30);
-      })
-      .catch(err => console.log(err))
-      .finally(() => setIsLoadingMore(false))
+  async function loadMore() {
+    try {
+      setIsLoadingMore(true);
+      const data = await BookService.getBooks(filter, index);
+      setResult({ ...result, items: result.items.concat(data.items) });
+      index + 30 >= data.totalItems ? setIndex(0) : setIndex(prev => prev + 30);
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoadingMore(false)
+    }
   }
 
   return (
