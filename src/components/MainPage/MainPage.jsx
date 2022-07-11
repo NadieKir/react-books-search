@@ -27,10 +27,12 @@ function MainPage() {
     request = request + `&orderBy=${filter.sort}&key=${apiKey}&startIndex=0&maxResults=30`;
 
     axios.get(request)
-      .then(data => setResult(data.data))
+      .then(({ data }) => {
+        setResult(data);
+        data.totalItems <= 30 ? setIndex(0) : setIndex(30);
+      })
       .catch(err => console.log(err))
 
-    setIndex(30);
   }
 
   function loadMore() {
@@ -39,10 +41,15 @@ function MainPage() {
     request = request + `&orderBy=${filter.sort}&key=${apiKey}&startIndex=${index}&maxResults=30`;
 
     axios.get(request)
-      .then(data => setResult({ ...result, items: result.items.concat(data.data.items) }))
+      .then(({ data }) => {
+        setResult({ ...result, items: result.items.concat(data.items) });
+        index + 30 >= data.totalItems ? setIndex(0) : setIndex(prev => prev + 30);
+      })
       .catch(err => console.log(err))
 
-      ((index + 30) > result.totalItems) ? setIndex(0) : setIndex(prev => prev + 30);
+    console.log(result.totalItems)
+
+
   }
 
   return (
