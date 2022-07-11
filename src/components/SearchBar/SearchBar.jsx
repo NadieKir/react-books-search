@@ -1,6 +1,8 @@
-import styles from './SearchBar.module.css';
+import Select from '../../UI/Select/Select';
+
 import search from '../../assets/img/search.svg'
-import Select from './Select/Select';
+import styles from './SearchBar.module.css';
+
 
 function SearchBar({ filter, setFilter, handleSubmit, categories, sorts }) {
 

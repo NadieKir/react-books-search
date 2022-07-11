@@ -14,13 +14,12 @@ function MainPage() {
   const [result, setResult] = useState([]);
   const [filter, setFilter] = useState({ query: '', category: 'any', sort: 'relevance' });
   const [index, setIndex] = useState(0);
-
-  // function buildRequest() {
-
-  // }
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [isLoadingSearch, setIsLoadingSearch] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsLoadingSearch(true);
 
     let request = `https://www.googleapis.com/books/v1/volumes?q=intitle:${filter.query}`;
     if (filter.category !== 'any') request = request + `+subject:${filter.category}`;
@@ -32,10 +31,12 @@ function MainPage() {
         data.totalItems <= 30 ? setIndex(0) : setIndex(30);
       })
       .catch(err => console.log(err))
-
+      .finally(() => setIsLoadingSearch(false))
   }
 
   function loadMore() {
+    setIsLoadingMore(true);
+
     let request = `https://www.googleapis.com/books/v1/volumes?q=intitle:${filter.query}`;
     if (filter.category !== 'any') request = request + `+subject:${filter.category}`;
     request = request + `&orderBy=${filter.sort}&key=${apiKey}&startIndex=${index}&maxResults=30`;
@@ -46,10 +47,7 @@ function MainPage() {
         index + 30 >= data.totalItems ? setIndex(0) : setIndex(prev => prev + 30);
       })
       .catch(err => console.log(err))
-
-    console.log(result.totalItems)
-
-
+      .finally(() => setIsLoadingMore(false))
   }
 
   return (
@@ -68,7 +66,13 @@ function MainPage() {
         </div>
       </header>
 
-      <MainContent foundBooks={result} loadMore={loadMore} index={index} />
+      <MainContent
+        foundBooks={result}
+        loadMore={loadMore}
+        index={index}
+        isLoadingSearch={isLoadingSearch}
+        isLoadingMore={isLoadingMore}
+      />
     </div>
   )
 }
