@@ -7,37 +7,48 @@ import styles from './MainContent.module.css';
 import Loader from '../../../UI/Loader/Loader';
 
 
-function MainContent({ foundBooks, loadMore, index, isLoadingSearch, isLoadingMore }) {
+function MainContent({ foundBooks, loadMore, hasMore, isLoading }) {
+  const renderLoadMore = () => {
+    if (foundBooks && isLoading) {
+      return (<Loader />);
+    }
+
+    if (hasMore) {
+      return <Button value='Load more' callback={loadMore} />;
+    }
+
+    return null;
+  }
+
+  const renderContent = () => {
+    if (!foundBooks && isLoading) {
+      return (<Loader />);
+    }
+
+    if (!foundBooks) {
+      return (<h2 className={styles.heading}>Start searching</h2>);
+    }
+
+    if (foundBooks.totalItems === 0) {
+      return (<h2 className={styles.heading}>Nothing found</h2>);
+    }
+
+    return (
+      <div>
+        <h2 className={styles.heading}>Found <span className="yellow">{foundBooks.totalItems}</span> results</h2>
+
+        <div className={styles["books-wrapper"]}>
+          {foundBooks.items.map(book => <Book data={book} key={book.etag} />)}
+        </div>
+        {renderLoadMore()}
+      </div>
+    );
+  }
+
   return (
     <main className={styles.main}>
       <div className={`${styles.container} container`} >
-        {isLoadingSearch
-          ? <Loader />
-          : foundBooks.length === 0 ? (
-            <h2 className={styles.heading}>Start searching</h2>
-          ) :
-            foundBooks.totalItems === 0 ?
-              (<h2 className={styles.heading}>Nothing found</h2>)
-              :
-              (
-                <div>
-                  <h2 className={styles.heading}>Found <span className="yellow">{foundBooks.totalItems}</span> results</h2>
-
-                  <div className={styles["books-wrapper"]}>
-                    {foundBooks.items.map(book => <Book data={book} key={book.etag} />)}
-                  </div>
-
-                  {isLoadingMore
-                    ? <Loader />
-                    : index !== 0 && <Button value='Load more' callback={loadMore} />
-                  }
-
-
-                </div>
-              )
-        }
-
-
+        {renderContent()}
       </div>
     </main>
   )
