@@ -2,7 +2,7 @@
   padding: 60px 0;
 }
 
-.container {
+.content-container {
   display: flex;
   column-gap: 60px;
 }
@@ -67,7 +67,7 @@
 }
 
 @media (max-width: 650px) {
-  .container {
+  .content-container {
     flex-direction: column;
     align-items: center;
     row-gap: 50px;

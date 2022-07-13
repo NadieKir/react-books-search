@@ -1,20 +1,31 @@
-import styles from './BookPage.module.css';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
 import Header from '../Header/Header';
 import BookContent from './BookContent/BookContent';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { useState } from 'react';
+
+import styles from './BookPage.module.css';
+import BookService from '../../services/BookService'
+
 
 function BookPage() {
   const { bookId } = useParams();
-
   const [result, setResult] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
-  const apiKey = 'AIzaSyBDHC44j_bDgGn_XY6u0h8NiyUkKeWw0qc';
-
-  axios.get(`https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`)
-    .then(data => setResult(data.data.volumeInfo))
-    .catch(err => console.log(err))
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await BookService.getBook(bookId);
+        setResult(data.data.volumeInfo);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, [bookId])
 
   return (
     <div>
@@ -22,7 +33,7 @@ function BookPage() {
         <Header />
       </header>
 
-      <BookContent result={result} />
+      <BookContent result={result} isLoading={isLoading} />
     </div>
   )
 }

@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import { apiKey } from '../constants/constants'
+
 
 export default class BookService {
   static async getBooks(filter, index) {
@@ -9,5 +11,10 @@ export default class BookService {
 
     const response = await axios.get(request);
     return response.data;
+  }
+
+  static async getBook(bookId) {
+    const response = await axios.get(`https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`);
+    return response;
   }
 }

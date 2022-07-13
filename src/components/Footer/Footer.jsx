@@ -2,6 +2,7 @@ import styles from './Footer.module.css';
 import logo from '../../assets/img/logo.svg'
 import github from '../../assets/img/github.svg'
 
+
 function Footer() {
   return (
     <footer className={styles.footer}>

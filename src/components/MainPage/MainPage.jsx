@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Header from '../Header/Header';
 import MainContent from './MainContent/MainContent';
@@ -30,7 +30,7 @@ function MainPage() {
       <header className={styles.header}>
         <Header />
         <div className={`${styles["first-screen-content"]} container`}>
-          <h1>A room without <span className="yellow">books</span>  like a body without a soul</h1>
+          <h1>A room without <span className="yellow">books</span> like a body without a soul</h1>
           <SearchBar
             filter={filter}
             setFilter={setFilter}
