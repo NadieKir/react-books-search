@@ -1,5 +1,6 @@
 .search-form {
   width: 710px;
+  /* width: 55%; */
 
   display: flex;
   flex-direction: column;
@@ -11,6 +12,8 @@
 
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 30px;
 }
 
 .main-search-input {
@@ -41,5 +44,27 @@
 
 .search-btn:hover {
   background: #ffcf55;
+}
+
+@media (max-width: 765px) {
+  .search-form {
+    width: 90%;
+  }
+}
+
+@media (max-width: 580px) {
+  .main-search-input {
+    width: 74%;
+  }
+}
+
+@media (max-width: 400px) {
+  .main-search-input {
+    height: 50px;
+  }
+  .search-btn {
+    width: 50px;
+    height: 50px;
+  }
 }
 

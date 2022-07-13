@@ -16,10 +16,29 @@
 
   font-weight: 700;
   font-size: 50px;
-  line-height: 55px;
+  line-height: 110%;
   text-align: center;
   text-transform: uppercase;
   color: #FFFFFF;
 
   margin-bottom: 40px;
+}
+
+@media (max-width: 765px) {
+  .first-screen-content h1 {
+    font-size: 38px;
+    width: 90%;
+  }
+}
+
+@media (max-width: 545px) {
+  .first-screen-content h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 400px) {
+  .first-screen-content h1 {
+    font-size: 28px;
+  }
 }

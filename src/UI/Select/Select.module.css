@@ -22,3 +22,19 @@
   border: none;
   outline: none;
 }
+
+@media (max-width: 400px) {
+  .input-wrapper select {
+    width: 180px;
+  }
+
+  .input-wrapper span {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 340px) {
+  .input-wrapper select {
+    width: 150px;
+  }
+}

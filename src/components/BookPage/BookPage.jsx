@@ -16,8 +16,6 @@ function BookPage() {
     .then(data => setResult(data.data.volumeInfo))
     .catch(err => console.log(err))
 
-  console.log(result);
-
   return (
     <div>
       <header className={styles.header}>

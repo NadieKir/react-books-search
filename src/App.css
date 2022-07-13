@@ -11,10 +11,17 @@ body {
 }
 
 .container {
-  width: 1235px;
+  /* width: 1235px; */
+  width: 80%;
   margin: 0 auto;
 }
 
 .yellow {
   color: #EDB72B;
+}
+
+@media (max-width: 370px) {
+  .container {
+    width: 90%;
+  }
 }
