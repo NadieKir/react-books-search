@@ -7,7 +7,7 @@ import noCover from '../../../assets/img/no-cover.jpg'
 function BookContent({ result, isLoading }) {
   return (
     <main className={styles.main}>
-      <div className={`${styles.container} container`}>
+      <div className={`container`}>
 
         {isLoading
           ? <Loader />

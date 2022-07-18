@@ -7,7 +7,7 @@ import styles from './MainContent.module.css';
 import Loader from '../../../UI/Loader/Loader';
 
 
-function MainContent({ foundBooks, loadMore, hasMore, isLoading }) {
+function MainContent({ foundBooks, loadMore, hasMore, isLoading, onBookClick }) {
   const renderLoadMore = () => {
     if (foundBooks && isLoading) {
       return (<Loader />);
@@ -38,7 +38,7 @@ function MainContent({ foundBooks, loadMore, hasMore, isLoading }) {
         <h2 className={styles.heading}>Found <span className="yellow">{foundBooks.totalItems}</span> results</h2>
 
         <div className={styles["books-wrapper"]}>
-          {foundBooks.items.map(book => <Book data={book} key={book.etag} />)}
+          {foundBooks.items.map(book => <Book data={book} key={book.etag} onClick={() => onBookClick(book.id)} />)}
         </div>
         {renderLoadMore()}
       </div>

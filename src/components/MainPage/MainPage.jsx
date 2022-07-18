@@ -1,28 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import MainContent from './MainContent/MainContent';
 import SearchBar from '../SearchBar/SearchBar';
 
 import { categories, sorts } from '../../constants/constants'
+import { useFetching } from '../../hooks/useFetching';
 
 import styles from './MainPage.module.css';
-import { useFetching } from '../../hooks/useFetching';
 
 
 function MainPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [filter, setFilter] = useState({ query: '', category: 'any', sort: 'relevance' });
-  const [fetch, loadMore, data, isLoading, hasMore] = useFetching();
+  const [fetch, loadMore, loadToIndex, data, isLoading, hasMore] = useFetching();
+
+  useEffect(() => {
+    (async function initialSetup() {
+      const query = searchParams.get('query');
+      const category = searchParams.get('category');
+      const sort = searchParams.get('sort');
+      const index = searchParams.get('index');
+      const bookId = searchParams.get('bookId');
+
+      if (query && category && sort && index) {
+        const initialFilter = { query, category, sort };
+        setFilter(initialFilter);
+        await loadToIndex(initialFilter, Number(index));
+        if (bookId) {
+          document.getElementById(bookId).scrollIntoView({ block: "center", behavior: "smooth" });
+        }
+      }
+    })()
+  }, [])
 
   async function handleSubmit(e) {
     e.preventDefault();
     if (filter.query) {
       await fetch(filter);
+      setSearchParams({ ...filter, index: 30 });
     }
   }
 
   async function hanldleLoadMore() {
-    await loadMore();
+    const loadMoreIndex = await loadMore();
+    setSearchParams({ ...filter, index: loadMoreIndex });
   }
 
   return (
@@ -46,6 +69,14 @@ function MainPage() {
         loadMore={hanldleLoadMore}
         hasMore={hasMore}
         isLoading={isLoading}
+        onBookClick={(bookId) => {
+          const query = searchParams.get('query');
+          const category = searchParams.get('category');
+          const sort = searchParams.get('sort');
+          const index = searchParams.get('index');
+
+          setSearchParams({ query, category, sort, index, bookId });
+        }}
       />
     </div>
   )

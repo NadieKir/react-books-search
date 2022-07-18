@@ -44,8 +44,10 @@ export const useFetching = () => {
         if (index + 30 >= result.totalItems) {
           setHasMore(false);
         }
-  
+
         setIndex(prev => prev + 30);
+
+        return index + 30;
       }
     } catch (e) {
         console.log(e.message);
@@ -54,5 +56,32 @@ export const useFetching = () => {
     }
   };
 
-  return [fetch, loadMore, data, isLoading, hasMore];
+  const loadToIndex = async(withFilter, toIndex) => {
+    try {
+      setIsLoading(true);
+      setFilter(withFilter);
+
+      const firstFetch = await BookService.getBooks(withFilter, 0);
+      let resultItems = [];
+
+      for (let i = 0; i < (toIndex / 30) - 1; i++) {
+        const result = await BookService.getBooks(withFilter, (i + 1) * 30)
+        resultItems = [...resultItems, ...result.items];
+      }
+      
+      setData({...firstFetch, items: [...firstFetch.items, ...resultItems]});
+
+      if (toIndex + 30 >= firstFetch.totalItems) {
+        setHasMore(false);
+      }
+
+      setIndex(toIndex);
+    } catch (e) {
+        console.log(e.message);
+    } finally {
+        setIsLoading(false);
+    }
+  }
+
+  return [fetch, loadMore, loadToIndex, data, isLoading, hasMore];
 }
