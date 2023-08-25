@@ -14,7 +14,7 @@ function Book({ data, onClick }) {
         <img src={data.volumeInfo.imageLinks ? data.volumeInfo.imageLinks.thumbnail : noCover} alt='cover' className={styles['book-cover']}></img>
         <div className={styles['book-info-wrapper']}>
           <div className={styles['book-info']}>
-            <p className={styles.categories}>{data.volumeInfo.categories ? data.volumeInfo.categories.join(', ') : 'Other'}</p>
+            <p className={styles.categories}>{data.volumeInfo.categories ? data.volumeInfo.categories[0] : 'Other'}</p>
             <h3 className={styles.name} title={title}> {limitedTitle} </h3>
             <p className={styles.authors}>{data.volumeInfo.authors ? data.volumeInfo.authors.join(', ') : 'Anonymous'}</p>
           </div>

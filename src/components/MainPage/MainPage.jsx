@@ -33,7 +33,7 @@ function MainPage() {
         }
       }
     })()
-  }, [])
+  }, [loadToIndex, searchParams])
 
   async function handleSubmit(e) {
     e.preventDefault();
